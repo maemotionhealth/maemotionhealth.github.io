@@ -323,7 +323,7 @@ em.ac{font-style:normal;color:var(--orange)}
  <p>Tu consentimiento, que nos das al marcar la casilla y enviar el formulario (art. 6.1.a RGPD). Puedes retirarlo en cualquier momento.</p>
  <h2>5. A quién comunicamos tus datos</h2>
  <p>No cedemos tus datos a terceros salvo obligación legal. Para poder atenderte nos apoyamos en proveedores que actúan como encargados del tratamiento:</p>
- <ul><li>Un servicio de envío de formularios (FormSubmit), que transmite el mensaje a nuestro correo electrónico.</li><li>Nuestro proveedor de correo electrónico (Google Gmail).</li><li>WhatsApp (Meta), si nos contactas por ese medio.</li></ul>
+ <ul><li>Un servicio de envío de formularios (Web3Forms), que transmite el mensaje a nuestro correo electrónico.</li><li>Nuestro proveedor de correo electrónico (Google Gmail).</li><li>WhatsApp (Meta), si nos contactas por ese medio.</li></ul>
  <p>Alguno de estos proveedores puede estar ubicado fuera del Espacio Económico Europeo. En ese caso, la transferencia se ampara en las garantías previstas en el RGPD.</p>
  <h2>6. Cuánto tiempo los conservamos</h2>
  <p>El tiempo necesario para atender tu consulta y, después, durante los plazos de prescripción de posibles responsabilidades legales. Pasado ese tiempo, se suprimen.</p>
@@ -383,7 +383,7 @@ document.getElementById('f').addEventListener('submit',function(e){
  function setMsg(t,c){msg.textContent=t;msg.className='fmsg '+(c||'')}
  function viaMail(){var body='Nombre: '+f.n.value+'\nEmail: '+f.e.value+'\nEmpresa: '+f.c.value+'\n\n'+f.m.value;location.href='mailto:'+TO+'?subject='+encodeURIComponent('Contacto web MAEmotionHealth')+'&body='+encodeURIComponent(body)}
  btn.disabled=true;var old=btn.textContent;btn.textContent='Enviando…';setMsg('');
- fetch('https://formsubmit.co/ajax/'+TO,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({Nombre:f.n.value,email:f.e.value,Empresa:f.c.value||'(no indicada)',Mensaje:f.m.value,_subject:'Nuevo mensaje desde la web MAEmotionHealth',_template:'table',_captcha:'false'})})
+ fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({access_key:'fdff4024-b8e6-4de3-a190-53b0982289b0',subject:'Nuevo mensaje desde la web MAEmotionHealth',from_name:'Web MAEmotionHealth',name:f.n.value,email:f.e.value,empresa:f.c.value||'(no indicada)',message:f.m.value})})
  .then(function(r){return r.json()})
  .then(function(j){if(j&&(j.success===true||j.success==='true')){f.reset();setMsg('¡Mensaje enviado! Te respondemos en menos de 48 h.','ok')}else{throw new Error('fail')}})
  .catch(function(){setMsg('No hemos podido enviarlo desde la web. Se abrirá tu correo para que lo envíes desde ahí, o escríbenos por WhatsApp.','err');setTimeout(viaMail,1500)})
